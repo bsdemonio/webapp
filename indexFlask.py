@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import glob;
-import pyPdf;
+#import pyPdf;
 import subprocess;
 import os;
 import time;
