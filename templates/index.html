@@ -1,0 +1,96 @@
+<!doctype html>
+<html ng-app="phdApp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHD</title>
+<!-- prefix free to deal with vendor prefixes -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!---<script type="text/javascript" src="{{ url_for('static', filename='lib/angular/angular.js') }}"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/controllers.js') }}"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</head>
+{% raw %}
+<body ng-controller="SearchLocate">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" style="cursor:pointer;" ng-click="clean()">Search & Classify Papers</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul style="cursor:pointer;" class="nav navbar-nav">
+				<li class="active">
+					<a ng-click="search()">Search</a>
+				</li>
+				<li>
+					<a ng-click="classify()">Classify</a>
+				</li>
+				<li>
+					<a ng-click="contact()">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<br><br>
+<div class="container">
+	<div class="starter-template">
+		<h1>Search and Classify Research Papers</h1>
+		<p class="lead">
+		Use this site to classify and locate scientific papers.
+		
+		<div class="container-fluid" style="display:{{searchContainer}}">
+			<div class="form-search">
+				<div class="input-append">
+					<input type="text" size="40%" ng-model="inputSearch" ng-keypress="($event.which === 13)?searchAction():0" class="span2 search-query">
+					 <button type="submit" ng-click="searchAction()" class="btn">Search</button>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="container-fluid" style="display:{{resultsSearch}}">
+			<h3>Results</h3>
+			<table class="table table-striped">
+			  <tr ng-repeat="paper in papers track by $index">
+			  	<td >
+			  		<span style="font-weight: bold;">{{paper[0]}}</span>
+			  		<div style="margin-left:30px;" ng-repeat="result in papers[$index][1]">
+			  			<a target="blank" href="static/pdf/{{result}}">{{result}}</a>
+			  		</div>
+			  	</td>
+			  </tr>
+			</table>
+		</div>
+		<div style="display:{{classifyContainer}}">
+			<input id="file" type="file" file-model="myFile"/><button type="submit" ng-click="uploadAction()" class="btn">Upload</button>
+			<div>
+				{{uploadFinish}}
+			</div>
+		</div>
+		<div style="display:{{contactContainer}}">
+			Alan Calvillo --- alancalvillo@yahoo.com
+		</div>
+	</div>
+</div>	
+</body>
+{% endraw %}
+</html>
+
+
